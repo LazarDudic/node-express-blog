@@ -1,0 +1,13 @@
+<% if (typeof errors !== 'undefined') { %>
+    <ul class="alert alert-danger ps-5">
+        <% for (const error of errors) { %>
+                <li><%= error.msg %></li>
+        <% } %>
+    </ul>
+<% } %>
+
+<% if (typeof error !== 'undefined') { %>
+    <div class="alert alert-danger" role="alert">
+        <%= error %> 
+    </div>
+<% } %>
