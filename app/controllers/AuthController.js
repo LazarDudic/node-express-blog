@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
 
 module.exports.loginGet = (req, res) => {
     res.render('auth/login', {
@@ -8,12 +10,16 @@ module.exports.loginGet = (req, res) => {
     });
 }
 
-module.exports.loginPost = (req, res) => {
-    res.send('Logged in');
-}
+module.exports.loginPost = passport.authenticate('local', 
+    { 
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true 
+    });
+
 
 module.exports.registerGet = (req, res) => {
-    res.render('auth/register', {
+    return res.render('auth/register', {
         title: 'Register'
     });
 }
@@ -29,11 +35,14 @@ module.exports.registerPost = async (req, res) => {
     user.name = req.body.name;
     user.lastName = req.body.lastName;
     user.email = req.body.email;
-    user.password = req.body.password;
+    user.password = hashedPassword;
     try {
         user.save();
-        res.redirect('/');
+        return res.redirect('/login');
     } catch (err) {
-        res.render('auth/register',  { error: err, title: 'Register' });
+        return res.render('auth/register',  { error: err, title: 'Register' });
     }
+
+    
 }
+

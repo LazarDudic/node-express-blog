@@ -11,3 +11,9 @@
         <%= error %> 
     </div>
 <% } %>
+
+<% if (messages.error) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= messages.error %>
+    </div>
+  <% } %>

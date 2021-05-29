@@ -2,8 +2,10 @@ const { Router } = require('express');
 const authController = require('../app/controllers/AuthController');
 const { check } = require('express-validator');
 const { UserEmailExists } = require('../app/validator');
+const { notAuthenticated } = require('../app/middleware/auth');
 const router = Router();
 
+router.use(notAuthenticated);
 router.get('/login', authController.loginGet);
 router.post('/login', authController.loginPost);
 router.get('/register', authController.registerGet);
