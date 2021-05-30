@@ -8,6 +8,6 @@ adminRouter.get('/dashboard', (req, res) => {
     return res.render('admin/dashboard', {
       title: 'Dashboard',
   });
-})
+});
 
 module.exports = adminRouter;
