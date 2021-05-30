@@ -23,6 +23,11 @@
                         <li class="nav-item"><a class="nav-link <%= title === 'Contact' ? 'active' : '' %>" href="#!">Contact</a></li>
                         <% if (typeof authUser !== 'undefined') { %>
                             <li class="nav-item"><a class="nav-link" href="/admin/home">Account</a></li>
+                            <li class="nav-item">
+                                <form action="/logout?_method=DELETE" method="POST">
+                                    <button type="submit" class="nav-link btn-link btn">Logout</button>
+                                </form>
+                            </li>
                         <% } else { %>
                             <li class="nav-item"><a class="nav-link <%= title === 'Login' ? 'active' : '' %>" href="/login">Login</a></li>
                             <li class="nav-item"><a class="nav-link <%= title === 'Register' ? 'active' : '' %>" href="/register">Register</a></li>

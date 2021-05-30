@@ -42,7 +42,9 @@ module.exports.registerPost = async (req, res) => {
     } catch (err) {
         return res.render('auth/register',  { error: err, title: 'Register' });
     }
-
-    
 }
 
+module.exports.logout = (req, res) => {
+    req.logOut();
+    return res.redirect('/login');
+}

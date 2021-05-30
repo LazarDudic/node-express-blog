@@ -1,7 +1,8 @@
 require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
-const flash = require('express-flash')
+const flash = require('express-flash');
+const methodOverride = require('method-override')
 const mongoose = require('mongoose');
 const passport = require('passport');
 const app = express();
@@ -23,6 +24,8 @@ initializePassport(passport);
 // Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride('_method'));
+
 
 const authRoutes = require('./routes/AuthRoutes');
 const adminRoutes = require('./routes/AdminRoutes');
