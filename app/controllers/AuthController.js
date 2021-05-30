@@ -12,7 +12,7 @@ module.exports.loginGet = (req, res) => {
 
 module.exports.loginPost = passport.authenticate('local', 
     { 
-        successRedirect: '/',
+        successRedirect: '/admin/dashboard',
         failureRedirect: '/login',
         failureFlash: true 
     });

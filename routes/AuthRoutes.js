@@ -3,14 +3,14 @@ const authController = require('../app/controllers/AuthController');
 const { check } = require('express-validator');
 const { UserEmailExists } = require('../app/validator');
 const { notAuthenticated, isAuthenticated } = require('../app/middleware/auth');
-const router = Router();
+const authRouter = Router();
 
-router.delete('/logout', [isAuthenticated], authController.logout);
-router.use(notAuthenticated);
-router.get('/login', authController.loginGet);
-router.post('/login', authController.loginPost);
-router.get('/register', authController.registerGet);
-router.post('/register',[
+authRouter.delete('/logout', [isAuthenticated], authController.logout);
+authRouter.use(notAuthenticated);
+authRouter.get('/login', authController.loginGet);
+authRouter.post('/login', authController.loginPost);
+authRouter.get('/register', authController.registerGet);
+authRouter.post('/register',[
     check('name')
         .notEmpty().withMessage('Name is required.')
         .bail()
@@ -34,4 +34,4 @@ router.post('/register',[
 ],
 authController.registerPost);
 
-module.exports = router;
+module.exports = authRouter;

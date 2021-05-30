@@ -4,9 +4,9 @@ const adminRouter = Router();
 
 adminRouter.use(isAuthenticated);
 
-adminRouter.get('/home', (req, res) => {
-    return res.render('admin/home', {
-      title: 'Admin Page',
+adminRouter.get('/dashboard', (req, res) => {
+    return res.render('admin/dashboard', {
+      title: 'Dashboard',
   });
 })
 
