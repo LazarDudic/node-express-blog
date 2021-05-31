@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon app.js"
+    "devStart": "nodemon app.js --ignore sessions/"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "express-session": "^1.17.2",
     "express-validation": "^3.0.8",
     "express-validator": "^6.11.1",
+    "fs": "0.0.1-security",
     "install": "^0.13.0",
     "method-override": "^3.0.0",
     "mogoose": "0.0.1-security",
@@ -27,6 +28,7 @@
     "npm": "^7.15.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "slugify": "^1.5.3",
     "uuid": "^8.3.2"
   }
 }
