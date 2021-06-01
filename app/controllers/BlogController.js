@@ -57,10 +57,8 @@ module.exports.edit = async (req, res) => {
 
     try {
         const blog = await Blog.findOne({ slug: req.params.slug});
+        if (! blog) throw new Error('Blog not found');
 
-        if (! blog) {
-            throw new Error('Blog not found');
-        }
         return res.render('admin/blog/edit', {
             title: 'Edit Blog',
             blog: blog,
@@ -81,9 +79,7 @@ module.exports.update = async (req, res) => {
 
     try {
         let blog = await Blog.findOne({ slug: req.params.slug});
-        if (! blog) {
-            throw new Error('Blog not found');
-        }
+        if (! blog) throw new Error('Blog not found');
 
         blog.title = req.body.title;
         blog.body = req.body.body;
@@ -95,11 +91,37 @@ module.exports.update = async (req, res) => {
             image.mv(process.cwd()+'/public/'+filePath, (err) => {
                 if (err) throw err;
             });
-            fs.unlink(process.cwd()+'/public/'+blog.image).
+            if (blog.image) {
+                fs.unlink(process.cwd()+'/public'+blog.image, (err) => {
+                    if(err) throw err;
+                });
+            }
             blog.image = filePath;
         }
         blog.save();
         await req.flash('success', 'Blog successfully updated!');
+        return res.redirect('/admin/blog/index');
+
+    } catch (error) {
+        await req.flash('error', error.message);
+        return res.redirect('/admin/blog/index');
+    }
+}
+
+module.exports.delete = async (req, res) => {
+    try {
+        let blog = await Blog.findOne({ slug: req.params.slug});
+        
+        if (! blog) throw new Error('Blog not found');
+
+        if(blog.image) { 
+            fs.unlink(process.cwd()+'/public'+blog.image, (err) => {
+                if(err) throw err;
+            });
+        }
+
+        blog.delete();
+        await req.flash('success', 'Blog successfully deleted!');
         return res.redirect('/admin/blog/index');
 
     } catch (error) {

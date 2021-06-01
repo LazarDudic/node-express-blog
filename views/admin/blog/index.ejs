@@ -49,7 +49,7 @@
                             <td><%= blog.updatedAt.toDateString() %></td>
                             <td class="d-flex">
                                 <a href="/admin/blog/edit/<%= blog.slug %>" class="btn btn-warning btn-sm me-2">Edit</a>
-                                <form action="">
+                                <form action="/admin/blog/delete/<%= blog.slug %>?_method=DELETE" method="POST">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
                             </td>

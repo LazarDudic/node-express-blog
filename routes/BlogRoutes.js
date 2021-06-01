@@ -28,5 +28,7 @@ blogRouter.put('/edit/:slug', [
             .custom(BlogImageFileTypes)
             .optional({ nullable: true }),
         ], blogController.update);
+
+blogRouter.delete('/delete/:slug', blogController.delete);
     
 module.exports = blogRouter;
