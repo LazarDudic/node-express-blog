@@ -1,7 +1,8 @@
 require('dotenv').config()
-
 const express = require('express');
 const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 const flash = require('express-flash')
 const fileUpload = require('express-fileupload');
 const methodOverride = require('method-override');
@@ -11,7 +12,12 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }))
 app.use(fileUpload());
+
+const RedisStore = connectRedis(session);
+const client = redis.createClient(process.env.REDIS_PORT);
+
 app.use(session({
+    store: new RedisStore({ client: client }),
 	secret: process.env.SECRET_KEY,
 	resave: false,
 	saveUninitialized: true
