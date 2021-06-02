@@ -5,7 +5,6 @@
             <li class="breadcrumb-item"><a href="index.html">Blog</a></li>
             <li class="breadcrumb-item active">Create</li>
         </ol>
-
 </div>
 <div class="container">
     <div class="row">
@@ -30,14 +29,12 @@
                             <textarea class="form-control" name="body"
                                       id="body" rows="5"><%= (typeof blog === 'object') ? blog.body : null %></textarea>
                         </div>
-
                         <div class="form-group py-4">
                             <label for="exampleFormControlFile1">
                                 Upload image
                             </label>
                             <input type="file" name="image" value="" class="form-control-file " id="exampleFormControlFile1">
                         </div>
-
                         <button type="submit" class="btn btn-primary btn-block">
                             Create
                         </button>

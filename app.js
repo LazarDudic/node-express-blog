@@ -39,6 +39,7 @@ app.use(methodOverride('_method'));
 const authRoutes = require('./routes/AuthRoutes');
 const adminRoutes = require('./routes/AdminRoutes');
 const blogRoutes = require('./routes/BlogRoutes');
+const categoryRoutes = require('./routes/CategoryRoutes');
 
 // View
 app.use(express.static(__dirname + '/public'));
@@ -52,6 +53,7 @@ app.use(function(req, res, next){
 
 app.get('/', (req, res) => res.render('home', {title: 'Home', }));
 
+app.use('/admin/categories', categoryRoutes);
 app.use('/admin/blog', blogRoutes);
 app.use('/admin', adminRoutes);
 app.use('', authRoutes);

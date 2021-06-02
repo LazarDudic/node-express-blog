@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Blogs</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Blogs</li>
+    </ol>
+    <%- include('../../partials/messages') %> 
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Blogs
+        </div>
+
+        <div class="card-body">
+
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% categories.forEach(category => { %>
+                        <tr>
+                            <td><%= category.id %></td>
+                            <td><%= category.name %></td>
+                            <td><%= category.createdAt.toDateString() %></td>
+                            <td><%= category.updatedAt.toDateString() %></td>
+                            <td class="d-flex">
+                                <a href="/admin/categories/edit/<%= category.slug %>" class="btn btn-warning btn-sm me-2">Edit</a>
+                                <form action="/admin/categories/delete/<%= category.slug %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</main>
+<%- include('../partials/footer') %>
