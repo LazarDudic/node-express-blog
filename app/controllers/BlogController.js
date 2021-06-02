@@ -23,7 +23,7 @@ module.exports.create = (req, res) => {
 module.exports.createPost = async (req, res) => {
     const valErrors = validationResult(req);
     if (!valErrors.isEmpty()) {
-        return res.render('admin/blog/create', { errors: valErrors.array(), title: 'Create Blog' });
+        return res.render('admin/blog/create', { errors: valErrors.array(), blog: req.body, title: 'Create Blog' });
     }
 
     let blog = new Blog();
@@ -31,7 +31,6 @@ module.exports.createPost = async (req, res) => {
     blog.body = req.body.body;
     try {
         if(req.files) { // Upload image if exists
-
             const image = req.files.image;
             const imageName = uuidv4()+'-'+image.name;
             const filePath = '/uploads/'+imageName;
@@ -54,7 +53,6 @@ module.exports.createPost = async (req, res) => {
 }
 
 module.exports.edit = async (req, res) => {
-
     try {
         const blog = await Blog.findOne({ slug: req.params.slug});
         if (! blog) throw new Error('Blog not found');
@@ -67,19 +65,18 @@ module.exports.edit = async (req, res) => {
         await req.flash('error', error.message);
         return res.redirect('/admin/blog/index');
     }
-
-
 }
 
 module.exports.update = async (req, res) => {
-    const valErrors = validationResult(req);
-    if (!valErrors.isEmpty()) {
-        return res.render('admin/blog/edit/', { errors: valErrors.array(), title: 'Create Blog' });
-    }
-
     try {
         let blog = await Blog.findOne({ slug: req.params.slug});
         if (! blog) throw new Error('Blog not found');
+
+        const valErrors = validationResult(req);
+        if (!valErrors.isEmpty()) {
+            req.body.image = blog.image;
+            return res.render('admin/blog/edit', {title: 'Edit Blog', blog: req.body, errors: valErrors.array() });
+        }
 
         blog.title = req.body.title;
         blog.body = req.body.body;
